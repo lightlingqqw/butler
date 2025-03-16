@@ -17,7 +17,7 @@ import {
       const message = exception.message || 'Internal Server Error';
   
       response.status(status).json({
-        result: 'error',
+        result: 400,
         message,
         data: null,
       });
