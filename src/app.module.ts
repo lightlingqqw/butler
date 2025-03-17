@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { UploadModule } from './upload/upload.module';
 import { DownloadModule } from './download/download.module';
+import { ProgrammeModule } from './programme/programme.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { DownloadModule } from './download/download.module';
     AuthModule,
     UploadModule,
     DownloadModule,
+    ProgrammeModule,
+    TagModule,
   ],
   controllers: [AppController],
   providers: [AppService],
