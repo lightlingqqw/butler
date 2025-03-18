@@ -19,6 +19,16 @@ export class UsersService {
     return await this.userRepository.save(user);
   }
 
+  // 搜索用户
+  async searchUsers(query: string): Promise<User[]> {
+    return this.userRepository
+      .createQueryBuilder('users')
+      .where('users.nickname LIKE :query', {
+        query: `%${query}%`, // 模糊搜索
+      })
+      .getMany();
+  }
+
   async findAll(): Promise<User[]> {
     return await this.userRepository.find();
   }

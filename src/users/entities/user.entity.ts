@@ -1,4 +1,5 @@
 import { Programme } from 'src/programme/entities/programme.entity';
+import { Relationship } from 'src/relationship/entities/relationship.entity';
 import { Role } from 'src/roles/enums/role.enum';
 import { Tag } from 'src/tag/entities/tag.entity';
 import {
@@ -36,5 +37,13 @@ export class User {
   
     @UpdateDateColumn({ type: 'datetime' })
     updatedAt: Date;
+
+        // 用户作为朋友关系中的发起者
+    @OneToMany(() => Relationship, (relationship) => relationship.fromUser)
+    fromRelationships: Relationship[];
+
+    // 用户作为朋友关系中的接受者
+    @OneToMany(() => Relationship, (relationship) => relationship.toUser)
+    toRelationships: Relationship[];
     
 }

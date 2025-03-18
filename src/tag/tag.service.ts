@@ -19,8 +19,8 @@ export class TagService {
     private readonly programmeRepository: Repository<Programme>,
   ) {}
 
-  async create(createTagDto: CreateTagDto): Promise<Tag> {
-    const { user_id, programme_id, tagName, deadline } = createTagDto;
+  async create(createTagDto: CreateTagDto&{user_id:string}): Promise<Tag> {
+    const { user_id, programme_id, tagName, deadline } = createTagDto; 
 
     // 检查用户是否存在
     const user = await this.userRepository.findOne({ where: { id: user_id } });

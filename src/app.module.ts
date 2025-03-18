@@ -10,6 +10,7 @@ import { UploadModule } from './upload/upload.module';
 import { DownloadModule } from './download/download.module';
 import { ProgrammeModule } from './programme/programme.module';
 import { TagModule } from './tag/tag.module';
+import { RelationshipModule } from './relationship/relationship.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { TagModule } from './tag/tag.module';
     DownloadModule,
     ProgrammeModule,
     TagModule,
+    RelationshipModule,
   ],
   controllers: [AppController],
   providers: [AppService],

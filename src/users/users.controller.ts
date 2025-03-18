@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,Put, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Put, UseGuards, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -9,7 +9,7 @@ import { Roles } from 'src/roles/decorators/roles.decorator';
 import { Role } from 'src/roles/enums/role.enum';
 
 @Controller('users')
-@UseGuards(JwtAuthGuard, RolesGuard)
+// @UseGuards(JwtAuthGuard, RolesGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -18,10 +18,15 @@ export class UsersController {
     return this.usersService.createUser(userData.nickname, userData.avatar, userData.role);
   }
 
-  @Roles(Role.Admin)
+  // @Roles(Role.Admin)
   @Get()
   async findAll(): Promise<User[]> {
     return this.usersService.findAll();
+  }
+
+  @Get('search')
+  async searchUsers(@Query('query') query: string) {
+    return this.usersService.searchUsers(query);
   }
 
   @Get(':id')

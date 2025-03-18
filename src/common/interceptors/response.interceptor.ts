@@ -14,12 +14,25 @@ import { ResponseFormat } from '../interfaces/response.interceptor';
   export class ResponseInterceptor<T> implements NestInterceptor<T, ResponseFormat<T>> {
     intercept(context: ExecutionContext, next: CallHandler): Observable<ResponseFormat<T>> {
       return next.handle().pipe(
-        map((data) => ({
-          result: 1, // 默认结果为成功
-          message: data?.message || '', // 从数据中提取消息
-          data: data?.data || null, // 从数据中提取主要数据
-          row: data?.row || null, // 从数据中提取额外行数据
-        })),
+        map((data) => {
+          // 如果是数组或对象，直接返回
+          if (Array.isArray(data)) {
+            return {
+              result: 1,
+              message: '',
+              data: data, // 直接返回原始数据
+              row: null,
+            };
+          }
+  
+          // 默认格式化逻辑
+          return {
+            result: 1,
+            message: data?.message || '',
+            data: data?.data || null,
+            row: data?.row || null,
+          };
+        }),
       );
     }
   }
